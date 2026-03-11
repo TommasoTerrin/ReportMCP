@@ -1,0 +1,17 @@
+services:
+  report_mcp:
+    build: .
+    container_name: report_mcp_service
+    ports:
+      - "8050:8050" # Main Application (Dashboard + MCP HTTP)
+    environment:
+      - DUCKDB_PATH=/app/data/report.db
+      - HOST=0.0.0.0
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+networks:
+  default:
+    name: report_mcp_network
